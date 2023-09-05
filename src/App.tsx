@@ -14,7 +14,7 @@ const App:React.FC = () => {
           <Route path="/" element={<PageHome/>}/>
           <Route path="/profile" element={<PageProfile/>}/>
           <Route path="/create-campaign" element={<PageCreateCampaign/>}/>
-
+          <Route path="/campaign-details/:id" element={<PageCampaignDetails/>}/>
         </Routes>
       </div>    
     </div>

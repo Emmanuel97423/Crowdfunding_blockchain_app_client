@@ -1,8 +1,9 @@
-import React from 'react'
+
 
 const PageCampaignDetails:React.FC = () => {
+  
   return (
-    <div>PageCampaignDetails</div>
+    <div >PageCampaignDetais</div>
   )
 }
 
