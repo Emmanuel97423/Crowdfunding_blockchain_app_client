@@ -1,4 +1,6 @@
 type FormFieldProps = {
+  name: string;
+  autoCompleteName?:string;
   labelName:string;
   placeholder:string;
   inputType:string;
@@ -6,7 +8,7 @@ type FormFieldProps = {
   value:string | number;
   handleChange:(e:React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-const ComponentFormField = ({labelName, placeholder, inputType, isTextArea, value, handleChange}: FormFieldProps) => {
+const ComponentFormField = ({name, labelName, placeholder, inputType, isTextArea, value, handleChange, autoCompleteName}: FormFieldProps) => {
   return (
     <label className="flex-1 w-full flex flex-col">
       {
@@ -17,6 +19,7 @@ const ComponentFormField = ({labelName, placeholder, inputType, isTextArea, valu
       {
         isTextArea ? (
           <textarea 
+          name={name}
           required
           value={value}
           onChange={handleChange}
@@ -26,6 +29,8 @@ const ComponentFormField = ({labelName, placeholder, inputType, isTextArea, valu
           />
         ) : (
           <input
+          autoComplete={autoCompleteName}
+          name={name}
           required
           value={value}
           onChange={handleChange}

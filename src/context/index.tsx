@@ -1,6 +1,8 @@
-import {useContext, createContext} from 'react';
-import { useAddress, useContract, useMetamask, useContractWrite, SmartContract, BaseContractForAddress } from '@thirdweb-dev/react';
-import { BaseContract } from 'ethers';
+import { useContext, createContext } from 'react';
+import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
+
+import type { StateContextProviderProps, CampaignProps } from "../types"
+import { ethers } from 'ethers';
 
 type FormCampaignProps = {
     title:string;
@@ -10,20 +12,14 @@ type FormCampaignProps = {
     image:string;
 }
 
-interface StateContextProviderProps {
-  children: React.ReactNode;
-  address?: string | undefined;
-  contract?: SmartContract<BaseContract> | SmartContract<BaseContractForAddress<never>> | null;
-  createCampaign?:()=> | undefined;
-  publishCampaign?:()=>{} | undefined;
-}
+
 
 const StateContext = createContext<StateContextProviderProps | null>(null);
 
-const addressEnv = import.meta.env.VITE_CONTRACT_ADDRESS ;
+const addressContractEnv = import.meta.env.VITE_CONTRACT_ADDRESS ;
 
 export const StateContextProvider:React.FC<StateContextProviderProps> = ({ children } ) => {
-    const { contract, isLoading : isLoadingUseContract, error: errorUseContract  } = useContract(addressEnv);
+    const { contract, isLoading : isLoadingUseContract, error: errorUseContract  } = useContract(addressContractEnv);
     if(errorUseContract) console.error(errorUseContract);
      const { mutateAsync : createCampaign, isLoading: isLoadingCreateCampaign, error: errorCreateCampaign } = useContractWrite(contract as any, 'createCampaign');
     if(errorCreateCampaign) console.error(errorCreateCampaign);
@@ -51,6 +47,25 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
                 
             }
             };
+        const campaigns = async()=>{
+            const campaigns = await contract.call("getCampaigns");
+            console.log('campaigns:', campaigns);
+
+            const parsedCampaigns = campaigns.map((campaign:CampaignProps, i:number)=>(
+                {
+                owner:campaign.owner,
+                title: campaign.title,
+                description: campaign.description,
+                target: ethers.utils.formatEther(campaign.target.toString()),
+                deadline:campaign.deadline.toNumber(),
+                amountCollected:ethers.utils.formatEther(campaign.amountCollected.toString()),
+                image:campaign.image
+            }
+            ));
+                return parsedCampaigns;
+
+
+        }
  
      
      return (
@@ -60,7 +75,8 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
                     address, 
                     connect,
                     contract, 
-                    createCampaign: publishCampaign 
+                    createCampaign: publishCampaign,
+                    getCampaigns: campaigns
                 }}
             >
                 {children}

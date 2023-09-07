@@ -7,10 +7,12 @@ import { money } from '../assets';
 import { ComponentButton, ComponentFormField } from "../components";
 import { checkIfImage } from "../../utils";
 
+import type { StateContextProviderProps } from "../types";
+
 const PageCreateCampaign:React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { createCampaign } = useStateContext();
+  const { createCampaign } : StateContextProviderProps = useStateContext();
   const [form, setForm] = useState({
     name:'',
     title:'',
@@ -48,13 +50,16 @@ const PageCreateCampaign:React.FC = () => {
       <form onSubmit={handleSubmit} className='w-full mt-[65px] flex flex-col gap-[30px]'>
         <div className='flex flex-wrap gap-[40px]'>
           <ComponentFormField
+          name='name'
           labelName='Votre Nom *'
           placeholder="John Doe"
           inputType="text"
           value={form.name}
           handleChange={(e:any)=>{handleFormFieldChange('name',e)}}
+          autoCompleteName="off"
           />
            <ComponentFormField
+           name="title"
           labelName='Campagne *'
           placeholder="Nom de la campagne"
           inputType="text"
@@ -64,6 +69,7 @@ const PageCreateCampaign:React.FC = () => {
           />
         </div>
          <ComponentFormField
+         name="description"
           labelName='Histoire *'
           placeholder="Votre histoire"
           isTextArea
@@ -77,6 +83,7 @@ const PageCreateCampaign:React.FC = () => {
           </div>
           <div className='flex flex-wrap gap-[40px]'>
           <ComponentFormField
+          name='target'
           labelName='Goal *'
           placeholder="ETH 0.50"
           inputType="number"
@@ -84,6 +91,7 @@ const PageCreateCampaign:React.FC = () => {
           handleChange={(e:any)=>{handleFormFieldChange('target',e)}}
           />
            <ComponentFormField
+           name="deadline"
           labelName='Date de fin *'
           placeholder="Date de fin"
           inputType="date"
@@ -91,6 +99,7 @@ const PageCreateCampaign:React.FC = () => {
           handleChange={(e:any)=>{handleFormFieldChange('deadline',e)}}
           />
           <ComponentFormField
+          name="image"
           labelName='Image de la campagne *'
           placeholder="Url de l'image pour la campagne"
           inputType="url"
