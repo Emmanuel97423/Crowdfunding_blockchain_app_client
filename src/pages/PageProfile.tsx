@@ -11,11 +11,11 @@ const PageProfile:React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [campaigns, setCampaigns] = useState<CampaignProps[]>([]);
 
-  const { address, contract, getCampaigns } = useStateContext();
+  const { address, contract, getUserCampaigns } = useStateContext();
 
   const fetchCampaigns = async()=>{
       setIsLoading(true);
-      const data = await getCampaigns();
+      const data = await getUserCampaigns();
       setCampaigns(data);
       setIsLoading(false);
 

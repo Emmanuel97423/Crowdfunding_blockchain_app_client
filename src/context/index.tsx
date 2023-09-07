@@ -26,7 +26,7 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
      const address = useAddress();
      const connect = useMetamask();
 
-      const publishCampaign = async(form:FormCampaignProps)=>{
+        const publishCampaign = async(form:FormCampaignProps)=>{
             try {
                 const data = await createCampaign({
                     args:[
@@ -66,7 +66,11 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
 
 
         }
- 
+        const getUserCampaigns = async()=>{
+            const allCampaigns = await campaigns();
+            const filteredCampaigns = allCampaigns.filter((campaign:CampaignProps)=>campaign.owner === address);
+            return filteredCampaigns;
+        }
      
      return (
 
@@ -76,7 +80,8 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
                     connect,
                     contract, 
                     createCampaign: publishCampaign,
-                    getCampaigns: campaigns
+                    getCampaigns: campaigns,
+                    getUserCampaigns
                 }}
             >
                 {children}

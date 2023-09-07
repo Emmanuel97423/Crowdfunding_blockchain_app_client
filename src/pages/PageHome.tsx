@@ -2,17 +2,10 @@ import {useState , useEffect} from 'react';
 
 import { useStateContext } from "../context";
 
-import { PageHomeDisplayCampaigns } from "../components";
+import { ComponentDisplayCampaigns } from "../components";
 
+import type { CampaignProps } from '../types';
 
-type CampaignProps = {
-  address: number;
-  title:string;
-  description:string;
-  target:string;
-  deadline:number;
-  imgUrl:string;
-}
 
 const PageHome:React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,7 +26,7 @@ const PageHome:React.FC = () => {
   },[address, contract])
 
   return (
-    <PageHomeDisplayCampaigns
+    <ComponentDisplayCampaigns
     title="Toutes les campagnes"
     isLoading={isLoading}
     campaigns={campaigns}
