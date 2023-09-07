@@ -2,9 +2,9 @@ type FormFieldProps = {
   labelName:string;
   placeholder:string;
   inputType:string;
-  isTextArea?:string;
+  isTextArea?:boolean;
   value:string | number;
-  handleChange:()=>void;
+  handleChange:(e:React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 const ComponentFormField = ({labelName, placeholder, inputType, isTextArea, value, handleChange}: FormFieldProps) => {
   return (

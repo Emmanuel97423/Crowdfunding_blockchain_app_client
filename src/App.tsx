@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {PageHome, PageProfile, PageCampaignDetails, PageCreateCampaign } from "./pages";
 import {ComponentSidebar, ComponentNavbar } from "./components";
 const App:React.FC = () => {
+  
   return (
    <Router>
       <div className="relative sm:p-8 p-4 bg-[#13131a] min-h-screen flex flex-row ">
