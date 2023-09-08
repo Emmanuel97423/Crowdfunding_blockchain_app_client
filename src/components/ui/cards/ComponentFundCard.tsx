@@ -15,7 +15,7 @@ const ComponentFundCard:React.FC<FundCard> = ({ owner, title, description, targe
     const remainingDate = daysLeft(deadline);
   return (
     <div className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer" onClick={handleClick}>
-        <img src={image} alt={title} className="w-full h-[158px] object-cover rounded-[15px]"/>
+        <img src={image} alt={title} className="w-full h-[158px] object-cover rounded-t-[15px]"/>
         <div className="flex flex-col p-4">
             <div className="flex flex-row items-center mb-[18px]">
                 <img src={tagType} alt="tag" className="w-[17px] h-[17px] object-contain"/>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
-import { ComponentButton, ComponentCountBox } from "../components";
+import { ComponentButton, ComponentCountBox, ComponentTransactionLoader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../../utils";
 import { thirdweb } from "../assets";
 
@@ -17,7 +17,9 @@ type Donator = {
 
 const PageCampaignDetails:React.FC = () => {
   const { state } = useLocation();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const navigate = useNavigate();
+  // @ts-ignore
+  const { donate, getDonations, contract, address, connect } = useStateContext();
 
   const [isLoading, setIsLoading ] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
@@ -27,7 +29,6 @@ const PageCampaignDetails:React.FC = () => {
 
   const fetchDonators = async()=>{
     const data = await getDonations(state.pId);
-    console.log('data:', data)
     setDonators(data)
   }
 
@@ -40,13 +41,15 @@ const PageCampaignDetails:React.FC = () => {
       setIsLoading(true);
       await donate(state.pId, amount);
       setIsLoading(false);
+      navigate('/')
+
     }
 
   }
   
   return (
     <div >
-      {isLoading && "Loading..."}
+      {isLoading && <ComponentTransactionLoader/>}
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
           <img src={state.image} alt="campaign" className="w-full h-[410px] object-cover rounded-xl"/>
@@ -97,7 +100,7 @@ const PageCampaignDetails:React.FC = () => {
           </div>
            <div>
             <h4 className="w-full font-epilogue font-semibold text-[18px] text-white  uppercase">Donateurs</h4>
-              <div className="mt-[20px] flex flex_col gap-4 ">
+              <div className="mt-[20px] flex flex-col gap-4 ">
 
                 {donators.length > 0 ? donators.map((item, i)=>(
                   <div key={`${item.donator}-${i}`}
@@ -132,12 +135,28 @@ const PageCampaignDetails:React.FC = () => {
                       <h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">Soutenez-le parce que vous y croyez.</h4>
                       <p className="mt-[20px] font-epilogue font-normal text-[#808191] leading-[22px]">Soutenez le projet sans récompense, simplement parce qu'il vous parle.</p>
                     </div>
-                    <ComponentButton
+
+                   {
+                    address ? (
+                      <ComponentButton
                     btnType="button"
                     title="Ajouter des fonds"
                     styles="w-full bg-[#8c6dfd]"
                     handleClick={handleDonate}
                     />
+                    ) : (
+                      <ComponentButton
+                    btnType="button"
+                    title={address ? "Ajouter des fonds" : "Connecter un wallet" }
+                    styles="w-full bg-[#8c6dfd]"
+                    handleClick={()=>{
+                      if(address) handleDonate();
+                      else connect();
+                    }}
+                    />
+                    )
+                   }
+                    
                   </div>
               </div>
         </div>

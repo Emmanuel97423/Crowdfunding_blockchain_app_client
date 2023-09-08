@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 
 import { useStateContext } from "../context";
 import { money } from '../assets';
-import { ComponentButton, ComponentFormField } from "../components";
+import { ComponentButton, ComponentFormField, ComponentTransactionLoader } from "../components";
 import { checkIfImage } from "../../utils";
 
 import type { StateContextProviderProps } from "../types";
@@ -42,7 +42,7 @@ const PageCreateCampaign:React.FC = () => {
   }
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-      {isLoading && 'Chargement...'}
+      {isLoading && <ComponentTransactionLoader/>}
       <div className='flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]'>
         <h1 className='font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white'>Commencer une campagne</h1>
       </div>

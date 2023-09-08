@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { ComponentFundCard } from "../..";
+import { ComponentFundCard, ComponentLoader } from "../..";
+
 import { loader } from "../../../assets";
 
 import type { CampaignProps } from "../../../types";
@@ -21,7 +22,8 @@ const PageHomeDisplayCampaigns:React.FC<DisplayCampaignsProps> = ({title, isLoad
       <div className="flex justify-center items-center flex-wrap mt-[20px] gap-[26px]">
         {
           isLoading && (
-              <img src={loader} alt="loader" className="w-[100px] h-[100x] object-contain"/>
+              // <img src={loader} alt="loader" className="w-[100px] h-[100x] object-contain"/>
+              <ComponentLoader/>
           )
         }
         {
