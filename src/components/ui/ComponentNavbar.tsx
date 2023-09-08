@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-
+// @ts-ignore
 import { useStateContext  } from "../../context";
 import { ComponentButton } from "../";
 import { logo, menu, search, thirdweb } from "../../assets";
@@ -11,6 +11,7 @@ const ComponentNavbar:React.FC = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState<string>('dashboard');
   const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+  // @ts-ignore
   const { connect, address } = useStateContext()
   // const address:string = "0xabcd"
 

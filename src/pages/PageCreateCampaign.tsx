@@ -12,6 +12,8 @@ import type { StateContextProviderProps } from "../types";
 const PageCreateCampaign:React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+        // @ts-ignore
+
   const { createCampaign } : StateContextProviderProps = useStateContext();
   const [form, setForm] = useState({
     name:'',
@@ -31,6 +33,7 @@ const PageCreateCampaign:React.FC = () => {
     checkIfImage(form.image, async(exists)=>{
       if(exists) {
         setIsLoading(true);
+        // @ts-ignore
         await createCampaign({...form, target:ethers.utils.parseUnits(form.target, 18)});
         setIsLoading(false);
         navigate('/')

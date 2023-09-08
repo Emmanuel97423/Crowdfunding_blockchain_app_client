@@ -10,6 +10,7 @@ import type { CampaignProps } from "../types";
 const PageProfile:React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [campaigns, setCampaigns] = useState<CampaignProps[]>([]);
+        // @ts-ignore
 
   const { address, contract, getUserCampaigns } = useStateContext();
 
