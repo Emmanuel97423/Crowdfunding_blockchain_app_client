@@ -79,7 +79,7 @@ const PageCreateCampaign:React.FC = () => {
           />
           <div className='w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]'>
             <img src={money} alt="money" className="w-[40px] h-[40px] object-contain"/>
-            <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px]">Vous recevrez 100% du montant récolté</h4>
+            <h4 className="font-epilogue font-bold md:text-[25px] sm:text-[12px] text-white ml-[20px] ">Vous recevrez 100% du montant récolté</h4>
           </div>
           <div className='flex flex-wrap gap-[40px]'>
           <ComponentFormField

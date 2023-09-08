@@ -1,7 +1,8 @@
 import { useContext, createContext } from 'react';
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
 
-import type { StateContextProviderProps, CampaignProps } from "../types"
+import type { StateContextProviderProps, CampaignProps } from "../types";
+
 import { ethers } from 'ethers';
 
 type FormCampaignProps = {
@@ -49,10 +50,10 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
             };
         const campaigns = async()=>{
             const campaigns = await contract.call("getCampaigns");
-            console.log('campaigns:', campaigns);
 
             const parsedCampaigns = campaigns.map((campaign:CampaignProps, i:number)=>(
                 {
+                pId:i,
                 owner:campaign.owner,
                 title: campaign.title,
                 description: campaign.description,
@@ -71,6 +72,25 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
             const filteredCampaigns = allCampaigns.filter((campaign:CampaignProps)=>campaign.owner === address);
             return filteredCampaigns;
         }
+        const donate =async(pId:number, amount:string)=>{
+            const data = await contract.call("donateToCampaign", [pId], {
+                value:ethers.utils.parseEther(amount)
+            });
+            return data
+        }
+        const getDonations = async(pId:number)=>{
+            const donations = await contract.call("getDonators", [pId]);
+            const numberOfDonations = donations[0].length
+            const parseDonations=[];
+
+            for(let i = 0; i < numberOfDonations; i++){
+                parseDonations.push({
+                    donator: donations[0][i],
+                    donation: ethers.utils.formatEther(donations[1][i].toString())
+                })
+            };
+            return parseDonations;
+        }
      
      return (
 
@@ -81,7 +101,9 @@ export const StateContextProvider:React.FC<StateContextProviderProps> = ({ child
                     contract, 
                     createCampaign: publishCampaign,
                     getCampaigns: campaigns,
-                    getUserCampaigns
+                    getUserCampaigns,
+                    donate,
+                    getDonations
                 }}
             >
                 {children}
