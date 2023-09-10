@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { ConnectWallet } from "@thirdweb-dev/react";
 // @ts-ignore
 import { useStateContext  } from "../../context";
 import { ComponentButton } from "../";
@@ -24,7 +25,7 @@ const ComponentNavbar:React.FC = () => {
         </div>
       </div>
       <div className="sm:flex hidden flex-row justify-end gap-4">
-        <ComponentButton 
+        {/* <ComponentButton 
         btnType="button" 
         title={ address ? "Creér une campagne" : "Connecter un wallet" } 
         styles={address ? "bg-[#1cd071]" : "bg-[#8c6dfd]"}
@@ -32,9 +33,19 @@ const ComponentNavbar:React.FC = () => {
           if(address) navigate('create-campaign')
           else connect()        
         }}
-/>
+        
+/> */}
+    <ConnectWallet
+            theme={"dark"}
+            btnTitle={"Se connecter"}
+            modalTitle={"Choisissez un portefeuille"}
+            dropdownPosition={{
+              align: "center",
+              side: "bottom",
+            }}
+          />
     <Link to="/profile">
-      <div className="w-[52px] h-[52px]  bg-[#2c2f32] flex justify-center items-center rounded-full cursor-pointer">
+      <div className={`${address ? "w-[52px] h-[52px]  bg-[#2c2f32] flex justify-center items-center rounded-full cursor-pointer" : "hidden"} `}>
         <img src={thirdweb} alt="user" className="w-[60%] h-[60%] object-contain"/>
       </div>
     </Link>

@@ -1,7 +1,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
+import { ThirdwebProvider,
+  ConnectWallet,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnect,
+  localWallet,
+  paperWallet, } from "@thirdweb-dev/react";
 import { Sepolia  } from "@thirdweb-dev/chains"
 import "./styles/globals.css";
 
@@ -20,11 +26,20 @@ root.render(
     <ThirdwebProvider
       clientId={clientId}
       activeChain={activeChain}
-      // ChainId={activeChain}
+       supportedWallets={[
+        metamaskWallet(),
+        coinbaseWallet(),
+        walletConnect(),
+        localWallet(),
+        // paperWallet({
+        //   paperClientId: "YOUR_PAPER_CLIENT_ID",
+        // }),
+      ]}
     >
       <StateContextProvider >
           <App />
       </StateContextProvider>
+     
     </ThirdwebProvider>
   </React.StrictMode>
 );

@@ -1,5 +1,6 @@
 import { useContext, createContext } from 'react';
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
+import type { WalletOptions, WalletConfig } from "@thirdweb-dev/react-core";
 
 import type { StateContextProviderProps, CampaignProps } from "../types";
 
