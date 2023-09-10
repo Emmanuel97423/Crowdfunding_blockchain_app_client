@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ConnectWallet } from "@thirdweb-dev/react";
+
 import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
@@ -104,7 +106,7 @@ const PageCampaignDetails:React.FC = () => {
 
                 {donators.length > 0 ? donators.map((item, i)=>(
                   <div key={`${item.donator}-${i}`}
-                  className="w-full flex justify-between items-center gap-4"
+                  className="w-full flex justify-between items-center gap-4  truncate"
                   >
                     <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">{i + 1}. {item.donator}</p>
                     <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll">{item.donation}</p>
@@ -145,15 +147,26 @@ const PageCampaignDetails:React.FC = () => {
                     handleClick={handleDonate}
                     />
                     ) : (
-                      <ComponentButton
-                    btnType="button"
-                    title={address ? "Ajouter des fonds" : "Connecter un wallet" }
-                    styles="w-full bg-[#8c6dfd]"
-                    handleClick={()=>{
-                      if(address) handleDonate();
-                      else connect();
-                    }}
-                    />
+             <div className="flex justify-center">
+                        <ConnectWallet
+                    theme={"dark"}
+                    btnTitle={"Se connecter"}
+                    modalTitle={"Choisissez un portefeuille"}
+                    dropdownPosition={{
+                      align: "center",
+                      side: "bottom",
+            }}
+          />
+             </div>
+                    //   <ComponentButton
+                    // btnType="button"
+                    // title={address ? "Ajouter des fonds" : "Connecter un wallet" }
+                    // styles="w-full bg-[#8c6dfd]"
+                    // handleClick={()=>{
+                    //   if(address) handleDonate();
+                    //   else connect();
+                    // }}
+                    // />
                     )
                    }
                     

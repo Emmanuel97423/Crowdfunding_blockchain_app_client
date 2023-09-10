@@ -83,8 +83,17 @@ const ComponentNavbar:React.FC = () => {
             </li>
           ))}
         </ul>
-        <div className="flex mx-4">
-          <ComponentButton 
+        <div className="w-full flex justify-center mx-4">
+           <ConnectWallet
+            theme={"dark"}
+            btnTitle={"Se connecter"}
+            modalTitle={"Choisissez un portefeuille"}
+            dropdownPosition={{
+              align: "center",
+              side: "bottom",
+            }}
+          />
+          {/* <ComponentButton 
         btnType="button" 
         title={ address ? "Creér une campagne" : "Connecter un wallet" } 
         styles={ address ? "bg-[#1cd071] w-full" : "bg-[#8c6dfd] w-full"}
@@ -93,7 +102,7 @@ const ComponentNavbar:React.FC = () => {
           else connect()
           
         }}
-/>
+          /> */}
         </div>
         </div>
       </div>
