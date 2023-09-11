@@ -1,6 +1,6 @@
 import { useContext, createContext } from 'react';
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
-import type { WalletOptions, WalletConfig } from "@thirdweb-dev/react-core";
+import { MetaMaskWallet } from "@thirdweb-dev/wallets";
 
 import type { StateContextProviderProps, CampaignProps } from "../types";
 
@@ -14,6 +14,11 @@ type FormCampaignProps = {
     image:string;
 }
 
+const clientId = import.meta.env.clientId;
+
+const wallet = new MetaMaskWallet({
+    clientId:clientId
+});
 
 
 const StateContext = createContext<StateContextProviderProps | null>(null);

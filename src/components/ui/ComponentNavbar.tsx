@@ -1,11 +1,14 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, walletConnect  } from "@thirdweb-dev/react";
+
 // @ts-ignore
 import { useStateContext  } from "../../context";
 import { ComponentButton } from "../";
 import { logo, menu, search, thirdweb } from "../../assets";
 import { navlinks } from "../../constants";
+
+const walletConnectConfig = walletConnect();
 
 
 const ComponentNavbar:React.FC = () => {
@@ -43,6 +46,7 @@ const ComponentNavbar:React.FC = () => {
               align: "center",
               side: "bottom",
             }}
+            
           />
     <Link to="/profile">
       <div className={`${address ? "w-[52px] h-[52px]  bg-[#2c2f32] flex justify-center items-center rounded-full cursor-pointer" : "hidden"} `}>

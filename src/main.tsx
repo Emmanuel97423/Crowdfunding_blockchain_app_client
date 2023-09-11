@@ -2,12 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { ThirdwebProvider,
-  ConnectWallet,
   metamaskWallet,
   coinbaseWallet,
   walletConnect,
   localWallet,
-  paperWallet, } from "@thirdweb-dev/react";
+  } from "@thirdweb-dev/react";
 import { Sepolia  } from "@thirdweb-dev/chains"
 import "./styles/globals.css";
 

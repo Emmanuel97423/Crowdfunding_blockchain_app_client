@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
+import { ConnectWallet  } from "@thirdweb-dev/react";
 
 import { useStateContext } from "../context";
 import { money } from '../assets';
@@ -14,7 +15,7 @@ const PageCreateCampaign:React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
         // @ts-ignore
 
-  const { createCampaign } : StateContextProviderProps = useStateContext();
+  const { createCampaign, address } : StateContextProviderProps = useStateContext();
   const [form, setForm] = useState({
     name:'',
     title:'',
@@ -111,13 +112,30 @@ const PageCreateCampaign:React.FC = () => {
           />
         </div>
 
+        
+
           <div className='flex justify-center items-center mt-[40px]'>
-            <ComponentButton
+         {
+          address ? (
+         <ComponentButton
             btnType='submit'
             title='Soumettre la campagne'
             styles='bg-[#1dc071]'
             handleClick={()=>{}}
             />
+          ) : (
+            <ConnectWallet
+            theme={"dark"}
+            btnTitle={"Se connecter"}
+            modalTitle={"Choisissez un portefeuille"}
+            dropdownPosition={{
+              align: "center",
+              side: "bottom",
+            }}
+            
+          />
+          )
+        }
           </div>
       </form>
     </div>
